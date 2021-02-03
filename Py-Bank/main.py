@@ -28,6 +28,7 @@ with open(csvpath, newline='') as csvfile:
 
         #Add Profit/Losses
         Profit_Loss.append(row[1])
+  
 
         
     
