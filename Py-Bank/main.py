@@ -4,18 +4,30 @@ import os
 #import the module for reading the CSV file
 import csv
 
-csvpath = os.path.join("..", "Resources", "budget_data.csv")
+csvpath = os.path.join('..', 'Py-Bank','Resources', 'budget_data.csv')
+
+#lists to store data
+month = []
+Profit_Loss = []
 
 #Method 2: Improved Reading of CSV Module
 
-with open(csvpath) as csvfile:
+with open(csvpath, newline='') as csvfile:
 
     #CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    print(csvreader)
+    
     #Read the header row first
     csv_header = next(csvreader)
+    for row in csvreader:
+     #to check that it's working
+        #print (row)
 
-    print(csv_header{1})
-    print(len(csvfile))
+        #Add month
+        month.append(row[0])
+
+        #Add Profit/Losses
+        Profit_Loss.append(row[1])
+
+        
     
