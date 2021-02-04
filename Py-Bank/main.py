@@ -40,7 +40,7 @@ with open(csvpath, newline='') as csvfile:
     print(f'----------------------------------')
     print(f'Total Months: {len(month)}')
     print(f'Total: {sum(Profit)}')
-    print(f'Average Change: {sum(Diff)/len(month)}')
+    print(f'Average Change: {sum(Diff)/len(month):.2f}')
     print(f'Greatest Increase in Profits: {month[Diff.index(max(Diff))]} {max(Diff)}')
     print(f'Greatest Decrease in Profits: {month[Diff.index(min(Diff))]} {min(Diff)}')
     
