@@ -28,14 +28,29 @@ with open(csvpath, newline='') as csvfile:
     #lists to store data
     month = []
     Profit = []
+    Total_profit = []
    
     for row in csvreader:
 
+        #make lists into values
         month.append(str(row[0]))
 
         Profit.append(int(row[1]))
         #Diff.append(int(row[3]))
-    print(len(month))
+        
+        
+        Total_profit = 0
 
-    print(f'{Profit}')
+        #find the total number of months
+        print(len(month))
+        
+        #find the profits to see it will work
+        print(f'{Profit}')
+
+        #find to total profit
+        Total_profit = Total_Profit + int(row[1])
+        print (Total_profit)
+
+
+
 
