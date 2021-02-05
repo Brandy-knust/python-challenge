@@ -14,16 +14,15 @@ with open(csvpath, newline='') as csvfile:
 
     #CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    print(csvreader)
+
 
     csv_header = next(csvreader)
    
     #lists to store data
     month = []
     Profit = []
-    Profit.append(0)
     Diff = []
-   
+    First = True
     for row in csvreader:
 
         #make lists into values
@@ -32,9 +31,13 @@ with open(csvpath, newline='') as csvfile:
         Profit.append(int(row[1]))
 
         #Michael Thomas helped me think of the Diff.append
-        Diff.append(Profit[-1] - Profit[-2])
+       
+        if not First:   
+            Diff.append(Profit[-1] - Profit[-2])
+        else: 
+            First = False
 
-    Profit.pop(0)
+
     #print financial analysis
     print(f'Financial Analysis')
     print(f'----------------------------------')
