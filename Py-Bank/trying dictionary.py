@@ -7,13 +7,6 @@ import csv
 csvpath = os.path.join('..', 'Py-Bank','Resources', 'budget_data.csv')
 
 
-
-#set counter
-# month_counter = 0
-# Profit = 0
-# difference_profit = 0
-# Average_prof = 0
-
 #Method 2: Improved Reading of CSV Module
 
 
@@ -28,7 +21,8 @@ with open(csvpath, newline='') as csvfile:
     #lists to store data
     month = []
     Profit = []
-    Total_profit = []
+    Profit.append(0)
+    Diff = []
    
     for row in csvreader:
 
@@ -36,20 +30,20 @@ with open(csvpath, newline='') as csvfile:
         month.append(str(row[0]))
 
         Profit.append(int(row[1]))
-        #Diff.append(int(row[3]))
-        
-        
-        Total_profit = 0
 
-        #find the total number of months
-        print(len(month))
-        
-        #find the profits to see it will work
-        print(f'{Profit}')
+        #Michael Thomas helped me think of the Diff.append
+        Diff.append(Profit[-1] - Profit[-2])
 
-        #find to total profit
-        Total_profit = Total_Profit + int(row[1])
-        print (Total_profit)
+    Profit.pop(0)
+    #print financial analysis
+    print(f'Financial Analysis')
+    print(f'----------------------------------')
+    print(f'Total Months: {len(month)}')
+    print(f'Total: {sum(Profit)}')
+    print(f'Average Change: {sum(Diff)/len(month)}')
+    print(f'Greatest Increase in Profits: {month[Diff.index(max(Diff))]} {max(Diff)}')
+    print(f'Greatest Decrease in Profits: {month[Diff.index(min(Diff))]} {min(Diff)}')
+    
 
 
 
