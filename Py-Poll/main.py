@@ -5,6 +5,7 @@ import os
 import csv
 
 csvpath = os.path.join('..', 'Py-Poll','Resources', 'election_data.csv')
+csvoutpath = os.path.join('..', 'Py-Poll', 'Analysis', 'election_results.txt')
 
 #Method 2: Improved Reading of CSV Module
 
@@ -13,71 +14,79 @@ with open(csvpath, newline='') as csvfile:
 
     #CSV reader specifies delimiter and variable that holds contents
     csvreader = csv.reader(csvfile, delimiter=',')
-    print(csvreader)
+    
 
     csv_header = next(csvreader)
 
     #lists to sort and store
 
     Total_Votes = 0
-    Candidate_Votes = 1
+    # Candidate_Votes = 1
     Name_list = []
-    Khan = []
-    Li = []
-    Correy = []
-    OTooley = []
+    # Khan = []
+    # Li = []
+    # Correy = []
+    # OTooley = []
 
     #dictionary
-    candidate_names = {}
-    candidate_names = {"Khan": 0, "Li": 0, "Correy": 0, "O'Tooley": 0}
+    candidate_dict = {}
+    #candidate_names = {"Khan": 0, "Li": 0, "Correy": 0, "O'Tooley": 0}
 
-    Voter_ID = []
-    County = []
-    Candidate = []
-
+    # Voter_ID = []
+    # County = []
+    # Candidate = []
+    Count = 0
+    print(f'Election Results \n')
+    print(f'-----------------------------\n')
     for row in csvreader:
 
-    #makes lists into values
-        Voter_ID.append(str(row[0]))
-        County.append(str(row[1]))
-        Candidate.append(str(row[2]))
+        Total_Votes += 1
+        candidate_names = row[2]
+        if candidate_names not in Name_list:
+            Name_list.append(candidate_names)
+            candidate_dict[candidate_names]=0
+        candidate_dict[candidate_names]  += 1
+  
+    print(f'Total_Votes = {Total_Votes}\n')
+    print(f'-----------------------------\n')
+    max = 0
+    Winner = ""
+    for i, (key, value) in enumerate(candidate_dict.items()):
 
-    #find votes by candidate
-        for x in candidate_names:
-            if isinstance(candidate_names[x], list):
-                count += len(candidate_names[x])
-    print(count)        
-
-
-        # Khan.append(int(row[2])) 
-        # Li.append(int(row[2]))
-        # Correy.append(int(row[2]))
-        # OTooley.append(int(row[2]))
-        # if [2] is "Khan":
-        #     sum(Khan)
-            
-        # elif [2] is "Li":
-        #     sum(Li)
-        # elif [2] is "Correy":
-        #     sum(Correy)
+ 
+        percentage_vote = value / Total_Votes *100
+        print (f'{key} - {round(percentage_vote,2)} % - ({value})\n')
         
-        # else:
-        #     sum(OTooley)
-               
+        if value > max:
+            max = value 
+            winner = key
+    print (f'-----------------------------')        
+    print (f'{winner} is the winner')
 
 
 
-# #print analysis block
-# print (f'Election Results')
-# print (f'-----------------------------')
-# #print total votes
-# print (f'Total Votes {sum(Total_Votes)}')
-# print (f'-----------------------------')
-# #print percentages votes for each candidate
-# print (f'')
-# print (f'-----------------------------')
-# #print winner
-# print (f'')
+with open (csvoutpath, "w") as text:
+    text.write(f'Election Results \n')
+    text.write(f'-----------------------------\n')
+    text.write(f'Total_Votes = {Total_Votes}\n')
+    text.write(f'-----------------------------\n')
+    text.write(f'{key} - {round(percentage_vote,2)} % - ({value})\n')
+    text.write(f'-----------------------------\n')
+    text.write(f'{winner} is the winner')
+
+
+
+# # #print analysis block
+# # print (f'Election Results')
+# # print (f'-----------------------------')
+# print Total Votes
+# print (f'Total_votes')
+# # print (f'-----------------------------')
+# # #print percentages votes for each candidate
+# # print (f'')
+# # print (f'-----------------------------')
+# # #print winner
+# # print (f'')
 
 
 
